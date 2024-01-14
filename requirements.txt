@@ -1,0 +1,7 @@
+asyncio
+requests
+sql
+aiogram
+bs4
+beautifulsoup4
+python-dotenv
