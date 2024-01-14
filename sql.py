@@ -2,7 +2,7 @@ import sqlite3
 
 
 def delete(key):
-    conn = sqlite3.connect(r'C:\Users\morga\PycharmProjects\Pitonchik/serial.db')
+    conn = sqlite3.connect(r'/serial.db')
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS serial(
                        serial_id INT PRIMARY KEY,
@@ -14,7 +14,7 @@ def delete(key):
 
 
 def set_value(name):
-    conn = sqlite3.connect(r'C:\Users\morga\PycharmProjects\Pitonchik/serial.db')
+    conn = sqlite3.connect(r'/serial.db')
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS serial(
            serial_id INT PRIMARY KEY,
@@ -29,7 +29,7 @@ def set_value(name):
 
 
 def get_value():
-    conn = sqlite3.connect(r'C:\Users\morga\PycharmProjects\Pitonchik/serial.db')
+    conn = sqlite3.connect(r'/serial.db')
     cur = conn.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS serial(
        serial_id INT PRIMARY KEY,
