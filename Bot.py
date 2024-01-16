@@ -63,7 +63,6 @@ async def parser(message: Message):
         soup = BeautifulSoup(html, "html.parser")
         #Проверка на фильм.
         film_check = soup.find("div", class_="col-lg-12")
-        print(soup)
         film = film_check.find("h1").text
         result = ""
         if film.split()[0] == "Фильм":
