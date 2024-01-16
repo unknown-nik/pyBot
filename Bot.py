@@ -60,7 +60,7 @@ async def parser(message: Message):
         headers = {"user-agent": "Mozilla/5.0"}
         response = requests.get(url, headers=headers)
         html = response.text
-        soup = BeautifulSoup(html, "html.parser")
+        soup = BeautifulSoup(html, "lxml")
         #Проверка на фильм.
         film_check = soup.find("div", class_="col-lg-12")
         film = film_check.find("h1").text
