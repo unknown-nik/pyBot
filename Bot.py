@@ -5,11 +5,15 @@ from aiogram.filters import Command
 import requests
 from bs4 import BeautifulSoup
 from aiogram.enums import ParseMode
-from aiogram.types import URLInputFile
+from aiogram.types import URLInputFile, FSInputFile
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 import sql
 from dotenv import load_dotenv
 import os
+import random
+
+
+
 
 load_dotenv()
 bot = Bot(os.getenv('TOKEN'))
@@ -24,6 +28,7 @@ async def cmd_start(message: types.Message):
         types.KeyboardButton(text="Кинуть кубик 🎲")
     )
     builder.row(types.KeyboardButton(text="Cписок сохраненных дорам 🗃️"))
+    builder.row(types.KeyboardButton(text="Случайный скриншот из Киберпанка 📸"))
     await message.answer(f"Nice to see you, mate {message.from_user.first_name}",
                          reply_markup=builder.as_markup(resize_keyboard=True))
 
@@ -45,6 +50,9 @@ async def opportunity(message: Message):
                          parse_mode=ParseMode.HTML)
     await message.answer("Могу удалить дораму ✅\n"
                          "Для этого введите: <b>Удалить <u>ключ дорамы</u></b> ✏️",
+                         parse_mode=ParseMode.HTML)
+    await message.answer("Могу отправить скрин ✅\n"
+                         "Для этого введите: <b>Скриншот</b> ✏️",
                          parse_mode=ParseMode.HTML)
 
 
@@ -142,6 +150,17 @@ async def delete(message: Message):
         sql.delete(get_mess_text)
     except:
         await message.answer("Таблица дорам пуста 🗒")
+
+
+#Код для скринов, в случие, если папка в директории
+@dp.message(lambda msg: any(word in msg.text.lower() for word in ["crhbyijn", "скриншот"]))
+async def random_scr_cyber(message: Message):
+    file = os.listdir('C:/Users/morga/PycharmProjects/Pitonchik/Screenshots')
+    random_choice = random.choice(file)
+    image_path = os.path.join("C:/Users/morga/PycharmProjects/Pitonchik/Screenshots/", random_choice)
+    img = FSInputFile(image_path)
+    await message.answer_photo(img)
+
 
 
 async def main():
